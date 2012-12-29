@@ -1,0 +1,55 @@
+/* General */
+html, body{
+	width: 100%;
+	font-family: arial;
+}
+
+#container{
+	width: 960px;
+	margin:50px auto;
+	padding: 20px;
+	background: #e3e3e3;
+}
+
+/* Header */
+
+#nav ul{
+ padding: 0;
+ margin: 0;
+ background: #999;
+}
+
+#nav ul li{
+	display: inline-block;
+	padding-right: 10px;
+}
+
+#nav ul li a{
+	color:#111;
+	text-decoration: none;
+}
+
+#nav ul li a:hover, #nav ul li a:active{
+	color:red;
+}
+
+/* Content */
+
+.content{
+
+}
+
+.content .articles_form{
+	width: 600px;
+	margin: 20px;
+}
+
+.content .articles_form label, .content .articles_form input{
+	display: block;
+}
+
+/* Footer */
+
+#footer{
+	background: #999;
+}
