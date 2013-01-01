@@ -32,18 +32,26 @@ class Articles_Controller extends Base_Controller {
         ->with('articles', $articles);
     } 
 
-
-
     // show from for creating a new article - GET
-	public function get_new()
+	public function get_new($default_article = '')
     {
-        return View::make('article.new');
+        return View::make('article.new')
+        ->with('article', $default_article);
     }
 
     // edit a specific article - GET
     public function get_edit($id)
-    {
-        return "edit a specific article with id of " . $id;   
+    {   
+        //$edit_article = Article::where('id', '=', $id)->get();
+        //$edit = Article::load($edit_article);
+
+        $edit_article = Article::find($id);
+
+        //if ( !$edit_article ) return Redirect::to_route('');
+        //return $this->get_new(array($edit_article->art_content));
+        return View::make('article.edit');
+        
+        //return "edit a specific article with id of " . $id;   
     }
 
 
