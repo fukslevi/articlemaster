@@ -1,5 +1,6 @@
 # Ignore configuration files that may contain sensitive information.
-database.php
+application/config/database.php
+
 
 # Ignore paths that contain user-generated content.
 
