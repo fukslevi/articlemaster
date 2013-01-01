@@ -1,5 +1,14 @@
 <?php
 
+// Show articles by ID - DONE
+// Show list of all articles - DONE
+// Show form for creating new article - DONE
+
+// Show form for editind the article title and content
+// Create new article 
+// delete article
+// Update article
+
 class Articles_Controller extends Base_Controller {    
 
     public $restful = true;
@@ -10,50 +19,50 @@ class Articles_Controller extends Base_Controller {
         //return View::make('article.index'); - GET
         $articles =  Article::all();
         return View::make('article.index')->with('articles', $articles);
+
          }   
+
+
 
     //show a specific article - GET
     public function get_show($id)
     {
-        //$newArticle = Input::get('title');
-        //$article = Article::find((int)$id);
-        //$articles =  Article::where_art_title(1);
-
-        $showArticle = Article::where_id('1')->first();
-        dd($showArticle);
-        return View::make('article.show');
-
-        //return "show a specific article with id of " . $id ;
+        $articles = Article::where('id' , '=' ,$id)->get();
+        return View::make('article.show')
+        ->with('articles', $articles);
     } 
 
-    // from for creating a new article - GET
+
+
+    // show from for creating a new article - GET
 	public function get_new()
     {
         return View::make('article.new');
-    }    
+    }
 
     // edit a specific article - GET
     public function get_edit($id)
     {
-        //$article = Article::find((int)$id);
-        return "edit a specific article with id of " . $id;
+        return "edit a specific article with id of " . $id;   
     }
 
 
     // MORE
 
 
-    // post a spesific article to the table - POST
+    // create a spesific article to the table - POST
     public function post_create() 
     {   
-        $articleTitle = Input::get('title');
-
-        $newArticle = Article::create(array(
-            'art_title' => $articleTitle
+        $new_article = Article::create(array(
+            'art_title'     => Input::get('art_title'),
+            'art_content'   => Input::get('art_content')
             ));
 
-       //return "Create that article in the DB";
-            return View::make('article.index');
+        if ( $new_article ) {
+            return Redirect::to_route('articles', $new_article->id);
+        }else{
+            return "Sorry.. there was a problem";
+        }
     }       
 
     // Update a spesific article in the table - PUT

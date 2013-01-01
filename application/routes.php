@@ -10,7 +10,7 @@ Route::get('/', function()
 
 // article Resource
 Route::get('articles', array('as' => 'articles', 'uses' => 'articles@index'));
-Route::get('articles/(:any)', array('as' => 'article', 'uses' => 'articles@show'));
+Route::get('articles/(:any)/show', array('as' => 'article', 'uses' => 'articles@show'));
 Route::get('articles/new', array('as' => 'new_article', 'uses' => 'articles@new'));
 Route::get('articles/(:any)/edit', array('as' => 'edit_article', 'uses' => 'articles@edit'));
 Route::post('articles', 'articles@create');
@@ -31,6 +31,10 @@ Route::delete('articles/(:any)', 'articles@destroy');
 | uncaught exception thrown in the application.
 |
 */
+
+Event::listen('laravel.query', function($sql){
+	var_dump($sql);
+});
 
 Event::listen('404', function()
 {
