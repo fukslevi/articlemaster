@@ -13,7 +13,7 @@
 		@foreach ($articles as $article)
         <div>
          	
-        	<h2><a href="{{ $article->art_title }}">{{ $article->art_title }}</a></h2>
+        	<h2><a href="articles/{{ $article->id }}/edit">{{ $article->art_title }}</a></h2>
         		<!-- <h2> {{ $article->art_title }} </h2> -->
         	
         	<p> {{ $article->art_content }} </p>
