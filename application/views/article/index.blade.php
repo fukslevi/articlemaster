@@ -18,6 +18,7 @@
         		<!-- <h2> {{ $article->art_title }} </h2> -->
         	
         	<p> {{ $article->art_content }} </p>
+            {{ HTML::link_to_route('edit_article' , 'Edit article', array($article->id)) }}
             <a href="{{URL::to('articles/'.$article->id)}}" onclick="return confirm('Are you sure?')">Delete</a>
             <span>{{ HTML::link_to_route('edit_article' , 'Edit article', array($article->id)) }}</span>
         </div>

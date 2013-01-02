@@ -63,7 +63,7 @@ class Articles_Controller extends Base_Controller {
         
         return View::make('article.edit')
         ->with('edit_article', $edit_article);
-    }
+    } 
 
 
     // Update article
