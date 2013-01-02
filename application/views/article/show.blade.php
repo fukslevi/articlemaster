@@ -1,3 +1,6 @@
+@layout('templates/master');
+
+@section('content')
 @foreach($articles as $article)
 		
 		<h3>For now, it shows the post id - I need to join the user table to the articles table</h3>
@@ -12,3 +15,4 @@
 		</ul>
 	</nav>
 @endforeach
+@endsection
