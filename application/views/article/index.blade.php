@@ -12,15 +12,21 @@
 		@foreach ($articles as $article)
         
         <div>
-         	<h2>{{ HTML::link_to_route('article' , $article->art_title, array($article->id)) }}</h2>
+         	<h2>
+                {{ HTML::link_to_route('article' , $article->art_title, array($article->id)) }}
+            </h2>
 
+            <div>
+                {{ $article->art_content }}
+            </div>
 
-        		<!-- <h2> {{ $article->art_title }} </h2> -->
-        	
-        	<p> {{ $article->art_content }} </p>
-            {{ HTML::link_to_route('edit_article' , 'Edit article', array($article->id)) }}
-            <a href="{{URL::to('articles/'.$article->id)}}" onclick="return confirm('Are you sure?')">Delete</a>
-            <span>{{ HTML::link_to_route('edit_article' , 'Edit article', array($article->id)) }}</span>
+                    <p>
+                    {{ HTML::link_to_route('edit_article' , 'Edit article', array($article->id)) }}
+                    {{ Form::open('articles/'.$article->id.'/delete', 'DELETE', array('style'=>'display:inline;')) }}
+                    {{ Form::submit('Delete') }}
+                    {{ Form::close() }}
+                    </p>
+
         </div>
         <hr>
 

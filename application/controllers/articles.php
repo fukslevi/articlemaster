@@ -6,8 +6,10 @@
 
 // Show form for editind the article title and content - DONE
 // Create new article - DONE
-// delete article - 
-// Update article
+// delete article - DONE
+// Update article - DONE
+
+
 
 class Articles_Controller extends Base_Controller {    
 
@@ -31,13 +33,19 @@ class Articles_Controller extends Base_Controller {
     // create new article
     public function post_create() 
     {   
-        $new_article = Article::create(array(
-            'art_title'     => Input::get('art_title'),
-            'art_content'   => Input::get('art_content')
-        ));
+        $validation = Article::validate(Input::all());
 
-        if ( $new_article ) {
-            return Redirect::to_route('articles', $new_article->id);
+        if ($validation->fails()) {
+            return Redirect::to_route('new_article')->with_errors($validation)->with_input();
+        }
+        else{
+            $new_article = Article::create(array(
+                'art_title'     => Input::get('art_title'),
+                'art_content'   => Input::get('art_content')
+            ));
+            
+            return Redirect::to_route('articles', $new_article->id)
+            ->with('message', 'Article created successfully');
         }
     }   
 
@@ -83,12 +91,16 @@ class Articles_Controller extends Base_Controller {
 
     // Delete article
 	public function delete_destroy($id)
-    {
-        $id = Input::get('id');
-        article::delete($id);
+    {   
+        //$id = Input::get('id');
+        $delete_article = Article::find($id);
+
+        if (! is_null($delete_article)){
+            $delete_article->delete();
+        }
 
         return Redirect::to_route('articles')
-        ->with('message', 'Article deleted successfully!');
+            ->with('message', 'The article was deleted');
     }
 
 }

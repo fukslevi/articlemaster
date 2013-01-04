@@ -15,7 +15,7 @@ Route::get('articles/new', array('as' => 'new_article', 'uses' => 'articles@new'
 Route::get('articles/(:any)/edit', array('as' => 'edit_article', 'uses' => 'articles@edit'));
 Route::post('articles', 'articles@create');
 Route::put('articles/(:any)', 'articles@update');
-Route::delete('articles/(:any)', 'articles@destroy');
+Route::delete('articles/(:any)/delete', 'articles@destroy');
 
 /*
 |--------------------------------------------------------------------------
