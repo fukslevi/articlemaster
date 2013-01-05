@@ -29,27 +29,6 @@ class Articles_Controller extends Base_Controller {
         return View::make('article.new');
     }
 
-
-    // create new article
-    public function post_create() 
-    {   
-        $validation = Article::validate(Input::all());
-
-        if ($validation->fails()) {
-            return Redirect::to_route('new_article')->with_errors($validation)->with_input();
-        }
-        else{
-            $new_article = Article::create(array(
-                'art_title'     => Input::get('art_title'),
-                'art_content'   => Input::get('art_content')
-            ));
-            
-            return Redirect::to_route('articles', $new_article->id)
-            ->with('message', 'Article created successfully');
-        }
-    }   
-
-
     // show article
     public function get_show($id)
     {
@@ -73,19 +52,42 @@ class Articles_Controller extends Base_Controller {
         ->with('edit_article', $edit_article);
     } 
 
+    // create new article
+    public function post_create() 
+    {   
+        $validation = Article::validate(Input::all());
+
+        if ($validation->fails()) {
+            return Redirect::to_route('new_article')->with_errors($validation)->with_input();
+        }
+        else{
+            $new_article = Article::create(array(
+                'title'     => Input::get('title'),
+                'content'   => Input::get('content')
+            ));
+            
+            return Redirect::to_route('articles', $new_article->id)
+            ->with('message', 'Article created successfully');
+        }
+    }   
 
     // Update article
 	public function put_update($id)
     {
-     $id = Input::get('id');
+        $validation = Article::validate(Input::all());
+        $id = Input::get('id');
 
-     article::update($id, array(
-         'art_title'    =>Input::get('art_title'),
-         'art_content'     =>Input::get('art_content')
-         ));
+        if ($validation->fails()) {
+            return Redirect::to_route('edit_article', $id)->with_errors($validation)->with_input();
+        }else{
+            article::update($id, array(
+                 'title'    =>Input::get('title'),
+                 'content'     =>Input::get('content')
+            ));
 
-     return Redirect::to_route('article', $id)
-     ->with('message', 'Article updated successfully!');
+             return Redirect::to_route('article', $id)
+             ->with('message', 'Article updated successfully!');
+         }
     }
 
 

@@ -1,7 +1,16 @@
 <?php
 
+// user Resource
+Route::get('users', array('as' => 'users', 'uses' => 'users@index'));
+Route::get('users/(:any)', array('as' => 'user', 'uses' => 'users@show'));
+Route::get('users/(:any)/posts', array('as' => 'posts_user', 'uses' => 'users@posts'));
+Route::get('users/new', array('as' => 'new_user', 'uses' => 'users@new'));
+Route::get('users/(:any)/edit', array('as' => 'edit_user', 'uses' => 'users@edit'));
+Route::post('users', 'users@create');
+Route::put('users/(:any)', 'users@update');
+Route::delete('users/(:any)', 'users@destroy');
 
-
+// Routes for articles
 Route::get('/', function()
 {
 
@@ -15,7 +24,7 @@ Route::get('articles/new', array('as' => 'new_article', 'uses' => 'articles@new'
 Route::get('articles/(:any)/edit', array('as' => 'edit_article', 'uses' => 'articles@edit'));
 Route::post('articles', 'articles@create');
 Route::put('articles/(:any)', 'articles@update');
-Route::delete('articles/(:any)/delete', 'articles@destroy');
+Route::delete('articles/(:any)', 'articles@destroy');
 
 /*
 |--------------------------------------------------------------------------

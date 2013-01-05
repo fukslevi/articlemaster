@@ -2,9 +2,13 @@
 
 class Article extends Eloquent 
 {
+	public function user() {
+		return $this->belongs_to('User');
+	}
+
 	public static $article_rouls = array(
-			'art_title' => 'required|min:2',
-			'art_content' => 'required|min:10'
+			'title' => 'required|min:2',
+			'content' => 'required|min:10'
 		);
 
 	public static function validate($data){

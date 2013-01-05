@@ -13,16 +13,16 @@
         
         <div>
          	<h2>
-                {{ HTML::link_to_route('article' , $article->art_title, array($article->id)) }}
+                {{ HTML::link_to_route('article' , $article->title, array($article->id)) }}
             </h2>
 
             <div>
-                {{ $article->art_content }}
+                {{ $article->content }}
             </div>
 
                     <p>
                     {{ HTML::link_to_route('edit_article' , 'Edit article', array($article->id)) }}
-                    {{ Form::open('articles/'.$article->id.'/delete', 'DELETE', array('style'=>'display:inline;')) }}
+                    {{ Form::open('articles/'.$article->id , 'DELETE', array('style'=>'display:inline;')) }}
                     {{ Form::submit('Delete') }}
                     {{ Form::close() }}
                     </p>

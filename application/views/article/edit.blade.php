@@ -4,15 +4,22 @@
 	
 	@section('form')
 
+		@if($errors->has())
+		<ul>
+			{{ $errors->first('title', '<li>:message</li>'); }}
+			{{ $errors->first('content', '<li>:message</li>'); }}
+		</ul>
+	@endif
+
 	{{Form::open('articles/update', 'PUT')}}
 
 		{{ Form::hidden('id', $edit_article->id) }}
 
-		{{ Form::label('art_title' ,'title') }}
-		{{ Form::text('art_title', Input::old('art_title', $edit_article->art_title)) }}
+		{{ Form::label('title' ,'title') }}
+		{{ Form::text('title', Input::old('title', $edit_article->title)) }}
 
-		{{ Form::label('art_content' ,'content') }}
-		{{ Form::textarea('art_content', Input::old('art_content', $edit_article->art_content)) }}
+		{{ Form::label('content' ,'content') }}
+		{{ Form::textarea('content', Input::old('content', $edit_article->content)) }}
 
 		 {{ Form::submit('Update User') }}
 
