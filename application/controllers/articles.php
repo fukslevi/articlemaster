@@ -18,7 +18,8 @@ class Articles_Controller extends Base_Controller {
     // Show all articles
 	public function get_index()
     {
-        $articles =  Article::all();
+        $articles = Article::with('user')->get();
+        //$articles =  Article::all();
         return View::make('article.index')->with('articles', $articles);
     }   
 

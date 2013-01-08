@@ -9,8 +9,8 @@
 	@foreach($users as $user)
 
 	<div>
-		
-		<p><span>Name: </span>{{ $user->first_name }}</p>
+		<!-- {{ HTML::link_to_route('article' , $user->first_name, array($user->id)) }} -->
+		<p><span>Name: </span>{{ HTML::link_to_route('user', $user->first_name, array($user->id)) }}</p>
 
 		<p><span>Email: </span>{{ $user->email }}</p>
 

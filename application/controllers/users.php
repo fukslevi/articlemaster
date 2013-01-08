@@ -27,7 +27,7 @@ class Users_Controller extends Base_Controller {
             'first_name'    => Input::get('first_name'),
             'last_name'     => Input::get('last_name'),
             'email'         => Input::get('email'),
-            'password'      => Input::get('password') 
+            'password'      => Hash::make(Input::get('password'))
             ));
         return Redirect::to_route('users', $new_user->id)
             ->with('message', 'User created successfully');
@@ -37,16 +37,12 @@ class Users_Controller extends Base_Controller {
 	public function get_show($id)
     {
         $users = User::where('id' , '=' ,$id)->get();
+        $articles = Article::with('user')->where('user_id' , '=' ,$id)->get();
         return View::make('user.show')
-        ->with('users', $users);
+            ->with('articles', $articles)
+             ->with('user', $users);
     }
 
-    public function get_posts($id)
-    {
-        $user_posts = Article::with('user')->where('user_id' , '=' ,$id)->get();
-        return View::make('user.posts')
-        ->with('user_posts', $user_posts);
-    }
 
     public function get_edit($id)
     {

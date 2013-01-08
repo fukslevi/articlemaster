@@ -8,10 +8,14 @@
 
 	@section('article_list')
 
+    
 	<h1>Article list</h1>
+    <hr>
+    <div>
 		@foreach ($articles as $article)
-        
-        <div>
+
+            <h4>Author Name: {{$article->user->first_name}}</h4>
+
          	<h2>
                 {{ HTML::link_to_route('article' , $article->title, array($article->id)) }}
             </h2>
@@ -20,17 +24,17 @@
                 {{ $article->content }}
             </div>
 
-                    <p>
-                    {{ HTML::link_to_route('edit_article' , 'Edit article', array($article->id)) }}
-                    {{ Form::open('articles/'.$article->id , 'DELETE', array('style'=>'display:inline;')) }}
-                    {{ Form::submit('Delete') }}
-                    {{ Form::close() }}
-                    </p>
+                <p>
+                {{ HTML::link_to_route('edit_article' , 'Edit article', array($article->id)) }}
+                {{ Form::open('articles/'.$article->id , 'DELETE', array('style'=>'display:inline;')) }}
+                {{ Form::submit('Delete') }}
+                {{ Form::close() }}
+                </p>
+        <hr>
+        @endforeach
 
         </div>
-        <hr>
 
-        @endforeach
 	@endsection
 
 @endsection
