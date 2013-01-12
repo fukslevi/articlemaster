@@ -19,7 +19,6 @@ class Articles_Controller extends Base_Controller {
 	public function get_index()
     {
         $articles = Article::with('user')->get();
-        //$articles =  Article::all();
         return View::make('article.index')->with('articles', $articles);
     }   
 
@@ -33,7 +32,7 @@ class Articles_Controller extends Base_Controller {
     // show article
     public function get_show($id)
     {
-        $articles = Article::where('id' , '=' ,$id)->get();
+        $articles = Article::with('user')->where('id' , '=' ,$id)->get();
         return View::make('article.show')
         ->with('articles', $articles);
     }

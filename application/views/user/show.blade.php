@@ -7,10 +7,10 @@
 	@foreach($user as $user)
 		
 		
-		<li>{{ $user->first_name }}</li>
-		<li>{{ $user->last_name }}</li>
-		<li>{{ $user->email }}</li>
-		<li>{{ $user->password }}</li>
+		<li>{{ e($user->first_name) }}</li>
+		<li>{{ e($user->last_name) }}</li>
+		<li>{{ e($user->email) }}</li>
+		<li>{{ e($user->password) }}</li>
 
 	@endforeach
 
@@ -24,7 +24,7 @@
 	<h3>{{ HTML::link_to_route('article' , $article->title , array($article->id)) }}</h3>
 	{{ $article->content }}
 	
-	<h4>Author Name: {{ $article->user->first_name }} </h4>
+	<h4>Author Name: {{ e($article->user->first_name) }} </h4>
 
 	<hr>
 

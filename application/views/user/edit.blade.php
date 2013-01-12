@@ -9,11 +9,14 @@
 			{{ $errors->first('first_name', '<li>:message</li>'); }}
 			{{ $errors->first('last_name', '<li>:message</li>'); }}
 			{{ $errors->first('email', '<li>:message</li>'); }}
-			{{ $errors->first('password', '<li>:message</li>'); }}
+			{{ $errors->first('password', '<li>:message</li>');}}
+			{{ $errors->first('password_confirmation', '<li>:message</li>');}}
 		</ul>
 	@endif
 
 	{{ Form::open('users/update', 'PUT') }}
+
+		{{ Form::token() }}
 
 		{{ Form::hidden('id', $edit_user->id) }}
 
@@ -28,6 +31,9 @@
 
 		{{ Form::label('password', 'Password') }}
 		{{ Form::password('password') }}
+
+		{{ Form::label('password_confirmation', 'Confirm Password') }}
+		{{ Form::password('password_confirmation') }}
 
 		{{ Form::submit('Update User') }}
 

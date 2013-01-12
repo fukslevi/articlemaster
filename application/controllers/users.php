@@ -24,8 +24,6 @@ class Users_Controller extends Base_Controller {
             return Redirect::to_route('new_user')->with_errors($validation)->with_input();
         }else{
         $new_user = User::create(array(
-            'first_name'    => Input::get('first_name'),
-            'last_name'     => Input::get('last_name'),
             'email'         => Input::get('email'),
             'password'      => Hash::make(Input::get('password'))
             ));
@@ -57,6 +55,7 @@ class Users_Controller extends Base_Controller {
         $validation = User::validate(Input::all());
         $id = Input::get('id');
 
+
         if ($validation->fails()) {
             return Redirect::to_route('edit_user', $id)->with_errors($validation)->with_input();
         }else{
@@ -64,7 +63,7 @@ class Users_Controller extends Base_Controller {
             'first_name'    => Input::get('first_name'),
             'last_name'     => Input::get('last_name'),
             'email'         => Input::get('email'),
-            'password'      => Input::get('password') 
+            'password'      => Hash::make(Input::get('password'))
             ));
 
         return Redirect::to_route('user', $id)
@@ -84,4 +83,33 @@ class Users_Controller extends Base_Controller {
             ->with('message', 'The user was deleted');
     }
 
+    // Login user
+    public function get_login() {        
+        return View::make('user.login')
+            ->with('title', 'Login form for users');
+
+    }
+
+    public function post_login() {
+        $user = array(
+            'username'  =>Input::get('email'),
+            'password'  =>Input::get('password')
+        );
+
+        if (Auth::attempt($user)) {
+            return Redirect::to_route('profile_user')
+                ->with('message', 'You are logged in!');
+
+        } else {
+            return Redirect::to_route('login_user')
+                ->with('message', 'Incorrect email or password')
+                ->with_input();
+        }
+    }
+
+    public function get_profile() {        
+        return View::make('user.profile')
+            ->with('title', 'welcome');
+
+    }
 }

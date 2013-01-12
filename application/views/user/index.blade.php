@@ -12,11 +12,12 @@
 		<!-- {{ HTML::link_to_route('article' , $user->first_name, array($user->id)) }} -->
 		<p><span>Name: </span>{{ HTML::link_to_route('user', $user->first_name, array($user->id)) }}</p>
 
-		<p><span>Email: </span>{{ $user->email }}</p>
+		<p><span>Email: </span>{{ e($user->email) }}</p>
 
 		{{ HTML::link_to_route('edit_user' , 'Edit user', array($user->id)) }}
 
 		{{ Form::open('users/'.$user->id, 'DELETE', array('style'=>'display:inline;')) }}
+		{{ Form::token() }}
 		{{ Form::submit('Delete') }}
 		{{ Form::close() }}
 

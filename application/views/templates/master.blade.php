@@ -19,6 +19,7 @@
 					<li><a href="/">home</a></li>
 					<li><a href="/articles">Articles</a></li>
 					<li><a href="/users">Users</a></li>
+					<li><a href="/login">Login</a></li>
 				</ul>
 			</nav>
 		</div>
@@ -26,6 +27,11 @@
 			
 		<!-- Start Content -->
 		<div class="content">
+			@if(Session::has('message'))
+			<p id="message">
+				{{ Session::get('message') }}
+			</p>
+			@endif
 			@yield('content')
 			
 			<div class="articles_form">

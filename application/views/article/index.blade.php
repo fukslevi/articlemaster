@@ -12,16 +12,15 @@
 	<h1>Article list</h1>
     <hr>
     <div>
-		@foreach ($articles as $article)
 
-            <h4>Author Name: {{$article->user->first_name}}</h4>
+		@foreach ($articles as $article)             
 
          	<h2>
                 {{ HTML::link_to_route('article' , $article->title, array($article->id)) }}
             </h2>
 
             <div>
-                {{ $article->content }}
+                {{ e($article->content) }}
             </div>
 
                 <p>

@@ -10,9 +10,10 @@
 			
 
 				<li>
-					<h2>{{$article->title}}</h2>
+					<h4>Author Name: {{ $article->user->first_name}} </h4>
+					<h2>{{ e($article->title) }}</h2>
 					<p>
-						{{ $article->content }}
+						{{ e($article->content) }}
 					</p>
 				</li>
 	@endforeach

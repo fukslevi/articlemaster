@@ -5,9 +5,15 @@ Route::get('users', array('as' => 'users', 'uses' => 'users@index'));
 Route::get('users/(:any)', array('as' => 'user', 'uses' => 'users@show'));
 Route::get('users/new', array('as' => 'new_user', 'uses' => 'users@new'));
 Route::get('users/(:any)/edit', array('as' => 'edit_user', 'uses' => 'users@edit'));
-Route::post('users', 'users@create');
-Route::put('users/(:any)', 'users@update');
-Route::delete('users/(:any)', 'users@destroy');
+Route::post('users', array('before' => 'csrf' , 'uses' => 'users@create'));
+Route::put('users/(:any)', array('before' => 'csrf' , 'uses' => 'users@update'));
+Route::delete('users/(:any)',array('before' => 'csrf' , 'uses' => 'users@destroy'));
+//Extra user resoureces
+Route::get('login', array('as' => 'login_user', 'uses' => 'users@login'));
+Route::post('login', array('before' => 'csrf' , 'uses' => 'users@login'));
+
+Route::get('users/profile', array('as' => 'profile_user', 'uses' => 'users@profile'));
+
 
 // Routes for articles
 Route::get('/', function()
