@@ -4,7 +4,7 @@
 
 	<h2>List of users</h2>
 	
-	<P>{{ HTML::link_to_route('new_user' , 'Sign up now!') }}</P>
+	<P>{{ HTML::link_to_route('register_user' , 'Sign up now!') }}</P>
 
 	@foreach($users as $user)
 

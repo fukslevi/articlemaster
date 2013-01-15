@@ -16,10 +16,16 @@
 		<div class="header">
 			<nav id="nav">
 				<ul>
-					<li><a href="/">home</a></li>
-					<li><a href="/articles">Articles</a></li>
-					<li><a href="/users">Users</a></li>
-					<li><a href="/login">Login</a></li>
+					<li><a href="/">Home</a></li>
+					<li>{{HTML::link_to_route('articles' , 'Articles') }}</li>
+					<li>{{HTML::link_to_route('users' , 'Users') }}</li>
+
+					@if(!Auth::check())
+						<li>{{HTML::link_to_route('register_user' , 'Register') }}</li>
+						<li>{{HTML::link_to_route('login_user' , 'Login') }}</li>
+					@else
+						<li>{{HTML::link_to_route('logout_user' , 'Logout ('.Auth::user()->email.')') }}</li>
+					@endif
 				</ul>
 			</nav>
 		</div>

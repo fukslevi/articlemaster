@@ -1,24 +1,32 @@
 <?php
 
-// user Resource
+/*********/
+/* users */
+/*********/
 Route::get('users', array('as' => 'users', 'uses' => 'users@index'));
 Route::get('users/(:any)', array('as' => 'user', 'uses' => 'users@show'));
-Route::get('users/new', array('as' => 'new_user', 'uses' => 'users@new'));
+// Update a user
 Route::get('users/(:any)/edit', array('as' => 'edit_user', 'uses' => 'users@edit'));
-Route::post('users', array('before' => 'csrf' , 'uses' => 'users@create'));
 Route::put('users/(:any)', array('before' => 'csrf' , 'uses' => 'users@update'));
+// Delete a user
 Route::delete('users/(:any)',array('before' => 'csrf' , 'uses' => 'users@destroy'));
-//Extra user resoureces
+// Register a user
+Route::get('users/register', array('as' => 'register_user', 'uses' => 'users@register'));
+Route::post('users', array('before' => 'csrf' , 'uses' => 'users@create'));
+// Login a user
 Route::get('login', array('as' => 'login_user', 'uses' => 'users@login'));
 Route::post('login', array('before' => 'csrf' , 'uses' => 'users@login'));
+// Logout a user
+Route::get('logout', array('as' => 'logout_user', 'uses' => 'users@logout'));
 
-Route::get('users/profile', array('as' => 'profile_user', 'uses' => 'users@profile'));
+Route::get('profile/(:any)', array('as' => 'profile_user', 'uses' => 'users@profile'));
 
 
-// Routes for articles
-Route::get('/', function()
-{
 
+/************/
+/* Articles */
+/************/
+Route::get('/', function(){
 	return View::make('home.index');
 });
 

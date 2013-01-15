@@ -10,25 +10,28 @@ class Users_Controller extends Base_Controller {
         return View::make('user.index')->with('users', $users);
     }
 
-    public function get_new()
+    public function get_register()
     {
-        return View::make('user.new');
+        return View::make('user.register');
     }
 
     public function post_create()
     {
          $validation = User::validate(Input::all());
 
-
         if ($validation->fails()) {
-            return Redirect::to_route('new_user')->with_errors($validation)->with_input();
+            return Redirect::to_route('register_user')->with_errors($validation)->with_input();
         }else{
-        $new_user = User::create(array(
+        $register_user = User::create(array(
             'email'         => Input::get('email'),
             'password'      => Hash::make(Input::get('password'))
             ));
-        return Redirect::to_route('users', $new_user->id)
-            ->with('message', 'User created successfully');
+
+        $user = User::where_email(Input::get('email'))->first();
+        Auth::login($user);
+
+        return Redirect::to_route('users', $register_user->id)
+            ->with('message', 'User created successfully. You are now logged in!');
         }
     }
 
@@ -97,6 +100,7 @@ class Users_Controller extends Base_Controller {
         );
 
         if (Auth::attempt($user)) {
+
             return Redirect::to_route('profile_user')
                 ->with('message', 'You are logged in!');
 
@@ -107,9 +111,24 @@ class Users_Controller extends Base_Controller {
         }
     }
 
-    public function get_profile() {        
-        return View::make('user.profile')
-            ->with('title', 'welcome');
-
+    public function get_logout(){
+        if (Auth::check()) {
+            Auth::logout();
+            return Redirect::to_route('login_user')
+                ->with('message', 'You are now logged out');
+        } else {
+            Redirect::to_route('users');
+        }
     }
+
+    public function get_profile($id) {
+
+        $users = User::where('id' , '=' ,$id)->get();
+        $articles = Article::with('user')->where('user_id' , '=' ,$id)->get();
+        
+        return View::make('user.profile')
+            ->with('articles', $articles)
+             ->with('user', $users);
+    }
+
 }
