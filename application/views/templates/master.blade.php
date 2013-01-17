@@ -6,6 +6,8 @@
 	<title>title</title>
 	<!-- CSS -->
 	{{ HTML::style('css/style.css') }}
+	{{ HTML::style('css/vendors/bootstrap.css') }}
+	{{ HTML::script('js/vendors/bootstrap.js') }}
 
 </head>
 <body>
