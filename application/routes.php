@@ -1,7 +1,19 @@
 <?php
 
 /*********/
-/* users */
+/* Home */
+/*********/
+
+Route::get('/', function(){
+	 $articles = Article::with('user')->get();
+
+	return View::make('home.index')
+		->with('articles', $articles);
+});
+
+
+/*********/
+/* Users */
 /*********/
 Route::get('users', array('as' => 'users', 'uses' => 'users@index'));
 Route::get('users/(:any)', array('as' => 'user', 'uses' => 'users@show'));
@@ -26,10 +38,6 @@ Route::get('profile/(:any)', array('as' => 'profile_user', 'uses' => 'users@prof
 /************/
 /* Articles */
 /************/
-Route::get('/', function(){
-	return View::make('home.index');
-});
-
 // article Resource
 Route::get('articles', array('as' => 'articles', 'uses' => 'articles@index'));
 Route::get('articles/(:any)/show', array('as' => 'article', 'uses' => 'articles@show'));

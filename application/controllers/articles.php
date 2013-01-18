@@ -9,6 +9,8 @@
 // delete article - DONE
 // Update article - DONE
 
+// Add article to loged in user and relate it to him
+
 
 
 class Articles_Controller extends Base_Controller {    
