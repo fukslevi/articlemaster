@@ -1,89 +1,104 @@
-@layout('templates/homepage')
+@layout('templates/master')
 	
 <!-- Start sidebar right -->
 @section('sidebar_right')
 
 	@section('login')
-		<div class="login_form">
-			<h3 class="h3">Login</h3>
-			<span>Enter your email and password</span>
-			<input type="text" value="email">
-			<input type="password" value="password">
-			<input type="submit" value="Login">
-
-		</div>
 	@endsection
 
 	@section('categories')
-		<nav>
-			<ul>
-				<!-- foreach($categories as $category)
-					<li><a href="#"> $category->name </a></li>
-				endforeach -->
-				<h3 class="h3">Categories</h3>
-				<li><a href="#">אומנות</a></li>
-				<li><a href="#">אינטרנט</a></li>
-				<li><a href="#">ביטוח</a></li>
-				<li><a href="#">בידור</a></li>
-				<li><a href="#">בית</a></li>
-				<li><a href="#">בריאות</a></li>
-				<li><a href="#">חוק ומשפט</a></li>
-				<li><a href="#">הובלות</a></li>
-			</ul>
-		</nav>
+	<nav>
+		<ul>
+			@foreach($categories as $category)
+
+				<li><a href="#"> {{ $category->name }} </a></li>
+			@endforeach
+			
+		</ul>
+	</nav>
 	@endsection
 
 	@section('social')
-		<h3 class="h3">Share us</h3>
-		@section('facebook')
-			<a href="#"><img src="../img/facebook.jpg" alt="Share it on Facebook"></a>
-		@endsection
-		@section('twitter')
-			<a href="#"><img src="../img/twitter.jpg" alt="Share it on Twitter"></a>
-		@endsection
 	@endsection
-
 @endsection
 <!-- End Sidebar right -->
 
-<!-- Start Sidebar left -->
-@section('sidebar_left')
-	@section('search_form')
-	<div>This is the search form</div>
-	<input type="text" value="search">
-	@endsection
-@endsection
-<!-- End Sidebar left -->
+
 
 <!-- Start content -->
 @section('main_content')
 	
 	@section('video_intro')
+	<div class="video_intro">
+		<iframe width="560" height="315" src="http://www.youtube.com/embed/AGjyD28_YsU?list=PLhPHE4rwuXJ77742_c17YZjtqX9XKZxqX" frameborder="0" allowfullscreen></iframe>
+	</div>
+	@endsection
+
+	@section('register')
+
+		@if($errors->has())
+			<ul>
+				{{ $errors->first('email', '<li>:message</li>'); }}
+				{{ $errors->first('password', '<li>:message</li>'); }}
+				{{ $errors->first('password_confirmation', '<li>:message</li>'); }}
+			</ul>
+		@endif
+
+		<h3 class="h3">הרשמה בחינם</h3>
+
+		<div class="hp_form">
+
+		{{ Form::open('users') }}
+
+			{{ Form::token() }}
+
+			{{ Form::label('email', 'אימייל') }}
+			{{ Form::text('email', Input::old('email')) }}
+
+			{{ Form::label('password', 'סיסמה') }}
+			{{ Form::password('password') }}
+
+			{{ Form::label('password_confirmation', 'אימות סיסמה') }}
+			{{ Form::password('password_confirmation') }}
+
+			{{ Form::submit('הירשם עכשיו!') }}
+
+		{{ Form::close() }}
+		</div>
+
+		<div class="reg_bullets">
+			<nav>
+				<ul>
+					<li>הרשם לאתר</li>
+					<li>פרסם מאמר</li>
+					<li>הרווח כסף!</li>
+				</ul>
+			</nav>				
+		</div>
+
 	@endsection
 
 	@section('latest_article_list')
 
-			<h3 class="h3">Article list</h1>
-		    <hr>
-		    <div>
-			@foreach ($articles as $article)
+		<h3 class="h3">מאמרים אחרונים</h1>
+	    <hr>
+	    <div>
+		@foreach ($articles as $article)
 
-		     <h4 class="h4">
-		     {{ HTML::link_to_route('articles' , $article->title, array($article->id)) }}
-		      </h4>
+		<div>
+	    <h4>
+	    	{{ HTML::link_to_route('article' , $article->title, array($article->id)) }}
+	     </h4>
+        	<p> {{ e($article->content) }} </p>
+        	<span class="read_more">
+        		{{ HTML::link_to_route('article' , 'קרא עוד', array($article->id)) }}
+        	</span>
+        </div>
 
-            <div>
-                {{ e($article->content) }}
-            </div>
+   		<hr>
+		@endforeach
 
-            <p>
-            {{ HTML::link_to_route('edit_article' , 'Edit article', array($article->id)) }}
-            {{ Form::open('articles/'.$article->id , 'DELETE', array('style'=>'display:inline;')) }}
-            {{ Form::submit('Delete') }}
-            {{ Form::close() }}
-            </p>
-       		<hr>
-       		@endforeach
 	@endsection
+
 @endsection
 

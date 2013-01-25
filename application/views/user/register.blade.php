@@ -1,8 +1,8 @@
-@layout('templates/master')
+@layout('templates/users/logs')
 
 @section('content')
 
-	@section('form')
+	@section('register')
 
 	@if($errors->has())
 		<ul>
@@ -12,20 +12,22 @@
 		</ul>
 	@endif
 
+	<h3 class="h3">הרשמה בחינם</h3>
+
 	{{ Form::open('users') }}
 
 		{{ Form::token() }}
 
-		{{ Form::label('email', 'Email') }}
+		{{ Form::label('email', 'אימייל') }}
 		{{ Form::text('email', Input::old('email')) }}
 
-		{{ Form::label('password', 'Password') }}
+		{{ Form::label('password', 'סיסמה') }}
 		{{ Form::password('password') }}
 
-		{{ Form::label('password_confirmation', 'Confirm Password') }}
+		{{ Form::label('password_confirmation', 'אימות סיסמה') }}
 		{{ Form::password('password_confirmation') }}
 
-		{{ Form::submit('Sign up!') }}
+		{{ Form::submit('הירשם עכשיו!') }}
 
 	{{ Form::close() }}
 

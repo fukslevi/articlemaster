@@ -105,7 +105,7 @@ class Users_Controller extends Base_Controller {
                 ->with('message', 'You are logged in!');
 
         } else {
-            return Redirect::to_route('login_user')
+            return Redirect::to('/')
                 ->with('message', 'Incorrect email or password')
                 ->with_input();
         }
@@ -117,7 +117,7 @@ class Users_Controller extends Base_Controller {
             return Redirect::to_route('login_user')
                 ->with('message', 'You are now logged out');
         } else {
-            Redirect::to_route('users');
+            Redirect::to('/');
         }
     }
 

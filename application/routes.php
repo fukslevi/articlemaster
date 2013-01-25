@@ -1,16 +1,30 @@
 <?php
 
+
+
+Route::get('/(:any)', function(){
+	$categories = Category::all();
+	return $categories;
+		//->with('categories', $categories);
+});
+
 /*********/
 /* Home */
 /*********/
 
 Route::get('/', function(){
 	 $articles = Article::with('user')->get();
-
+	 $categories = Category::all();
 	return View::make('home.index')
-		->with('articles', $articles);
+		->with('articles', $articles)
+		->with('categories', $categories);
 });
 
+/**************/
+/* Categories */
+/**************/
+
+Route::get('categories', array('as' => 'categories', 'uses' => 'categories@index'));
 
 /*********/
 /* Users */
