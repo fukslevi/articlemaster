@@ -1,24 +1,34 @@
-@layout('templates/master');
+@layout('templates/articles/articles');
 
-@section('content')
+@section('article_list')
 
-	<h3>For now, it shows the post id - I need to join the user table to the articles table</h3>
-<nav>
-	<ul>
-
-	@foreach($articles as $article)
-			
-
-				<li>
-					<h4>Author Name: {{ $article->user->first_name}} </h4>
-					<h2>{{ e($article->title) }}</h2>
-					<p>
-						{{ e($article->content) }}
-					</p>
-				</li>
-	@endforeach
-
-	</ul>
-		</nav>
+	<nav>
+		<ul>
+			@if(Session::has('message'))
+    		<p id="message">
+    			{{ Session::get('message') }}
+    		</p>
+    		@endif
+		@foreach($articles as $article)
+			<li>
+				<h4>{{ e($article->title) }}</h4>
+				@if(Auth::check())
+				<span>Author Name: {{ $article->user->first_name}} </span>
+				<div id="editable" contenteditable="true">
+					{{ e($article->content) }}
+				</div>
+				{{Form::open('articles/update', 'PUT')}}
+				{{ Form::hidden('id', $edit_article->id) }}
+				{{ Form::submit('Submit', array('class' => 'btn btn-inverse submit')) }}
+				{{ Form::close() }}
+				@else
+				<div>
+					{{ e($article->content) }}
+				</div>
+				@endif
+			</li>
+		@endforeach
+		</ul>
+	</nav>
 		
 @endsection

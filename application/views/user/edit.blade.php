@@ -1,8 +1,8 @@
 @layout('templates/master')
 
-@section('content')
+@section('main_content')
 
-	@section('form')
+	
 
 	@if($errors->has())
 		<ul>
@@ -13,6 +13,8 @@
 			{{ $errors->first('password_confirmation', '<li>:message</li>');}}
 		</ul>
 	@endif
+
+@if ( !Auth::guest() )
 
 	{{ Form::open('users/update', 'PUT') }}
 
@@ -39,6 +41,8 @@
 
 	{{ Form::close() }}
 
-	@endsection
+	@else
+	<li>{{HTML::link_to_route('login_user' , 'התחבר') }}</li>
+	@endif
 
 @endsection

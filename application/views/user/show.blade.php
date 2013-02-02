@@ -1,6 +1,6 @@
 @layout('templates/master')
 
-@section('content')
+@section('main_content')
 	
 	<ul>
 		<h2>User Details</h2>

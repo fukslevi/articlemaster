@@ -8,11 +8,10 @@
 	{{ HTML::style('css/style.css') }}
 	{{ HTML::style('css/vendors/bootstrap.css') }}
 	{{ HTML::script('js/vendors/bootstrap.js') }}
+	{{ HTML::script('/ckeditor/ckeditor.js') }}
 
 </head>
 <body>
-	
-	
 
 	<!-- Start Header -->
 	<div class="header_wrapper">
@@ -109,6 +108,7 @@
 		<!-- Start Content -->
 		<div class="main_content">			
 
+			<!-- HOMEPAGE -->
 			<div class="video_intro">
 				@yield('video_intro')
 			</div>
@@ -123,9 +123,8 @@
 				@yield('latest_article_list')
 			</div> 
 
-			<div class="latest_article_list">
-				@yield('article_list')
-			</div> 
+			<!-- ARTICLE LIST -->
+
 
 		@yield('main_content')
 		</div> <!-- End Content -->

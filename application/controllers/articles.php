@@ -28,15 +28,26 @@ class Articles_Controller extends Base_Controller {
     // Show new form
     public function get_new()
     {
-        return View::make('article.new');
+        $user = Auth::user();
+
+        return View::make('article.new')
+        ->with('user', $user);
     }
 
     // show article
     public function get_show($id)
     {
         $articles = Article::with('user')->where('id' , '=' ,$id)->get();
+        $edit_article = Article::find($id);
+
+        if ( is_null($edit_article) )
+        {
+         return Redirect::to('articles')
+            ->with('message', 'The article yo\'ve been locking for does not exist');
+        }
         return View::make('article.show')
-        ->with('articles', $articles);
+        ->with('articles', $articles)
+        ->with('edit_article', $edit_article);
     }
 
 
@@ -45,10 +56,10 @@ class Articles_Controller extends Base_Controller {
     {   
         $edit_article = Article::find($id);
 
-        /* if ( is_null($edit_article) )
+        if ( is_null($edit_article) )
         {
          return Redirect::to('articles');
-       } */
+        }
         
         return View::make('article.edit')
         ->with('edit_article', $edit_article);
@@ -65,7 +76,8 @@ class Articles_Controller extends Base_Controller {
         else{
             $new_article = Article::create(array(
                 'title'     => Input::get('title'),
-                'content'   => Input::get('content')
+                'content'   => Input::get('content'),
+                'user_id'   => Input::get('user')
             ));
             
             return Redirect::to_route('articles', $new_article->id)

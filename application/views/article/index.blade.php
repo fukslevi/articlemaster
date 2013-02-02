@@ -1,6 +1,6 @@
-@layout('templates/master')
+@layout('templates/articles/articles')
 
-@section('content')
+@section('article_list')
 
 
 <P>{{ HTML::link_to_route('new_article' , 'Create a new article') }}</P>
@@ -15,9 +15,9 @@
 
 		@foreach ($articles as $article)             
 
-         	<h2>
+         	<h4>
                 {{ HTML::link_to_route('article' , $article->title, array($article->id)) }}
-            </h2>
+            </h4>
 
             <div>
                 {{ e($article->content) }}
